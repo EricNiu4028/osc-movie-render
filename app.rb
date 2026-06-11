@@ -18,7 +18,7 @@ class App < Sinatra::Base
   end
 
   def title
-    'Summer Instititue Starter App'
+    'Summer Institute Starter App'
   end
 
   get '/examples' do
@@ -187,7 +187,7 @@ class App < Sinatra::Base
   get '/' do
     logger.info('requsting the index')
     @flash = session[:flash]
-    @flash = { info: 'Beginning Bitcoin Mining Background Task...' }
+    @flash = { info: 'Click "New Project" to begin rendering a movie!' }
     erb(:index)
   end
 

@@ -1,0 +1,74 @@
+<h1 class="display-5 py-3 mb-3 border-bottom font-weight-bold">
+  <%= title %>
+</h1>
+
+<script>
+$(document).ready(function(){
+  $('a[data-toggle="tooltip"]').tooltip({
+    animated: 'fade',
+    placement: 'bottom',
+    html: true
+});
+});
+</script>
+
+Welcome to the cool OSC SI WebApp
+
+<div class="project-section mt-5">
+  <h2 class="display-7 border-bottom py-3 font-weight-bold">
+    Current Projects:
+  </h2>
+  <ul class='list-group list-group-horizontal flex-wrap col-md-12'>
+    <% project_dirs.each do |dir| %>
+      <div>
+        <li class='list-group-item btn btn-outline-dark m-3 border'>
+          <a href="<%= url("/projects/#{dir}") %>" class="text-center" data-toggle="tooltip" data-html="true" data-placement="top" title='<img src="/pun/sys/dashboard/files/fs<%= frames(dir).first %>" class="img-fluid" alt="No Frames Rendered :(">'>
+            <p><%= dir %></p>
+          </a>
+        </li>
+      </div>
+    <% end %>
+  </ul>
+</div>
+
+<div class="job-section mt-5">
+  <h2 class="display-7 py-3 font-weight-bold">
+    Active Jobs:
+  </h2>
+  <% if jobs.empty? %>
+    <div class="d-flex justify-content-center fw-bold">
+      <p class="fw-bold">There are no current jobs...</p>
+    </div>
+  <% else %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Started</th>
+          <th scope="col">Account</th>
+          <th scope="col">Cluster</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% jobs.each do |job| %>
+            <tr>
+              <th scope="row"><%= job[:job_id] %></th>
+              <td>
+                <% if File.exist?("#{log_root}/#{job[:job_id]}.out") %>
+                  <a href="<%= url("/jobs/#{job[:job_id]}") %>"><%= job[:name] %></a>
+                <% else %>
+                  <%= job[:name] %>
+                <% end %>
+              </td>
+              <td class="status-label"><span class="badge bg-primary text-white"><%= job[:job_state].first %></span></td>
+              <td><%= job[:start_time][:number] ? convert_datetime(job[:start_time][:number]) : "None" %></td>
+              <td><%= job[:account].upcase %></td>
+              <td><%= job[:cluster].capitalize %></td>
+            </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

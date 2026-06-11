@@ -1,0 +1,17 @@
+<div class="justify-content-center flex-1"> 
+ <h1 class="my-3 py-3 font-weight-bold border-bottom">
+ <i class="fas fa-images fa-fw"></i>
+ Start a new Rendering Project</h1>
+</div>
+
+<div class="justify-content-center align-content-center">
+  <form action="<%= url('projects/new') %>" method="post">
+
+    <div class="form-group">
+      <label for="name">Project Name</label>
+      <input type="text" name="project_name" class="form-control" id="project_name" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary my-3">Submit</button>
+  </form>
+</div>
